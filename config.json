@@ -1,0 +1,9 @@
+{
+  "radarr_url": "https://radarr.site/api/",
+  "radarr_api_key": "thisismykey",
+  "tmdb_api_key": "thisismykey",
+  "radarr_path": "/path/to/movies",
+  "search_on_add": true,
+  "monitored": true,
+  "profile": "6"
+}
