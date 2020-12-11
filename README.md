@@ -25,3 +25,11 @@ Add movies to Radarr, by author
 3. Run the application
 
 `node index.js <actor name>`
+
+## Notes About Usage
+
+- The script will take the first results from TMDB, it might work to use the Person's ID, but I haven't tested that.
+
+- Multiple actors can be searched for at once, just specify more than one, e.g. `node index.js "Jack Nicholson" "Tom Cruise"`
+
+- The actor's name must be quoted, else the script will execute a search for each term.
