@@ -11,7 +11,7 @@ const tmdb_key = config.tmdb_api_key
 
 const radarrConf = {baseURL: config.radarr_url}
 const radarr = axios.create(radarrConf)
-const radar_key = config.radarr_api_key
+const radarr_key = config.radarr_api_key
 
 async function addMovie (movie) {
   console.log(`Getting details about \'${movie.title}\' from radarr`)
@@ -22,7 +22,7 @@ async function addMovie (movie) {
 
 function viaRadarr(movie) {
   console.log()
-  return radarr.get('movie/lookup/tmdb', {params: {tmdbId: movie.id,apikey: radar_key}})
+  return radarr.get('movie/lookup/tmdb', {params: {tmdbId: movie.id,apikey: radarr_key}})
 }
 
 async function addRadarr(movie) {
@@ -30,7 +30,7 @@ async function addRadarr(movie) {
   movie.path = `${config.radarr_path}/${movie.title.replace(/\//, '-')} (${movie.year})`
   movie.monitored = config.monitored
   movie.addOptions = {"searchForMovie" : config.search_on_add}
-  return await radarr.post(`movie?apikey=${radar_key}`, movie)
+  return await radarr.post(`movie?apikey=${radarr_key}`, movie)
   .then((res) => {console.log(`Successfully added \'${movie.title}\' to Radarr`)})
   .catch((err) => {
     if (err.response.status === 400) {console.log(`\'${movie.title}\' already exists in Radarr`)} 
@@ -47,7 +47,7 @@ async function searchMovies(val) {
 async function filterMissing (found) {
   // get the movies, extract the tmdbId
   console.log(`removing results already present in radarr...`)
-  const existingIds=(await radarr.get('movie',{params: {apikey: radar_key}})).data.map(movie => movie.tmdbId)
+  const existingIds=(await radarr.get('movie',{params: {apikey: radarr_key}})).data.map(movie => movie.tmdbId)
   return found.filter(movie => !(existingIds.includes(movie.id)))
 }
 
